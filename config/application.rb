@@ -6,6 +6,12 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+begin
+  require 'dotenv'
+  Dotenv.load('.env.local', ".env.#{Rails.env}", '.env')
+rescue LoadError
+end
+
 module CodecovPractice
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

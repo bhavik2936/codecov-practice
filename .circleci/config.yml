@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  # https://circleci.com/developer/orbs/orb/codecov/codecov
+  codecov: codecov/codecov@3.1.1
+
+executors:
+  base-docker-executor:
+    docker:
+      - image: circleci/ruby:2.7.1
+
+jobs:
+  upload_coverage_reports_to_codecov:
+    executor: base-docker-executor
+    steps:
+      - checkout
+      - run:
+          name: Hello World
+          command: echo "Hello World"
+
+workflows:
+  test_suite:
+    jobs:
+      - upload_coverage_reports_to_codecov

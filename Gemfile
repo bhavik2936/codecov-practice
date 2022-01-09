@@ -52,6 +52,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'simplecov', require: false
   # Adds rspec testing environment
   gem 'rspec-rails'
   gem 'factory_bot_rails'

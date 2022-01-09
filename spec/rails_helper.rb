@@ -2,7 +2,7 @@
 if ENV['CI'] || ENV['COVERAGE']
   require 'simplecov'
   SimpleCov.start 'rails' do
-    formatter SimpleCov::Formatter::SimpleFormatter
+    formatter ENV['CI'] ? SimpleCov::Formatter::SimpleFormatter : SimpleCov::Formatter::HTMLFormatter
   end
 end
 

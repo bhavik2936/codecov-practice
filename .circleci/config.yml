@@ -10,6 +10,17 @@ executors:
       - image: circleci/ruby:2.7.1
 
 jobs:
+  rspec:
+    executor: base-docker-executor
+    steps:
+      - checkout
+      - run:
+          name: Setup Database
+          command: rake db:setup
+      - run:
+          name: Run Rspec
+          command: rspec
+
   upload-to-codecov:
     executor: base-docker-executor
     steps:
@@ -19,4 +30,7 @@ jobs:
 workflows:
   test_suite:
     jobs:
-      - upload-to-codecov
+      - rspec
+      - upload-to-codecov:
+          requires:
+            - rspec

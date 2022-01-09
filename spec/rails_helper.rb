@@ -1,8 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 if ENV['CI'] || ENV['COVERAGE']
   require 'simplecov'
+  require 'simplecov-lcov'
   SimpleCov.start 'rails' do
-    formatter ENV['CI'] ? SimpleCov::Formatter::SimpleFormatter : SimpleCov::Formatter::HTMLFormatter
+    formatter ENV['CI'] ? SimpleCov::Formatter::LcovFormatter : SimpleCov::Formatter::HTMLFormatter
   end
 end
 

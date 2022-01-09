@@ -53,6 +53,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'simplecov-lcov', require: false
   # Adds rspec testing environment
   gem 'rspec-rails'
   gem 'factory_bot_rails'

@@ -10,6 +10,14 @@ executors:
       - image: circleci/ruby:2.7.1
 
 jobs:
+  install_dependencies:
+    executor: base-docker-executor
+    steps:
+      - checkout
+      - run:
+          name: Install Ruby Dependencies
+          command: bundle install --deployment
+
   rspec:
     executor: base-docker-executor
     steps:
@@ -30,7 +38,10 @@ jobs:
 workflows:
   test_suite:
     jobs:
-      - rspec
+      - install_dependencies
+      - rspec:
+          requires:
+            - install_dependencies
       - upload-to-codecov:
           requires:
             - rspec

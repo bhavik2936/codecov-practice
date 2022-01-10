@@ -9,16 +9,36 @@ executors:
     docker:
       - image: circleci/ruby:2.7.1
 
+commands:
+  install_dependencies:
+    steps:
+      - run:
+          name: Install Ruby Dependencies
+          command: bundle install --deployment
+
 jobs:
-  upload_coverage_reports_to_codecov:
+  rspec:
     executor: base-docker-executor
     steps:
       - checkout
+      - install_dependencies
       - run:
-          name: Hello World
-          command: echo "Hello World"
+          name: Setup Database
+          command: bundle exec rake db:setup
+      - run:
+          name: Run Rspec
+          command: rspec
+
+  upload-to-codecov:
+    executor: base-docker-executor
+    steps:
+      - checkout
+      - codecov/upload
 
 workflows:
   test_suite:
     jobs:
-      - upload_coverage_reports_to_codecov
+      - rspec
+      - upload-to-codecov:
+          requires:
+            - rspec

@@ -24,7 +24,7 @@ jobs:
       - install_dependencies
       - run:
           name: Setup Database
-          command: rake db:setup
+          command: bundle exec rake db:setup
       - run:
           name: Run Rspec
           command: rspec
